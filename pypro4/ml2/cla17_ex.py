@@ -16,7 +16,7 @@ from sklearn.metrics import accuracy_score
 from sklearn.preprocessing import StandardScaler
 import seaborn as sns
 
-
+'''
 
 data = pd.read_csv("../testdata/Heart.csv")
 
@@ -68,6 +68,37 @@ print('newPred : ',newPred)
 sns.pairplot(data[['Age', 'Sex', 'RestBP', 'Chol', 'Fbs', 'RestECG', 'MaxHR', 'ExAng', 'Oldpeak', 'Slope', 'Ca', 'AHD']],
              hue='AHD', markers=['o', 's'])
 plt.show()
+'''
+
+from sklearn.model_selection import train_test_split
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.metrics import accuracy_score
+
+# 데이터 로드 및 전처리
+data = pd.read_csv('../testdata/titanic_data.csv', usecols=['Survived', 'Pclass', 'Sex', 'Age', 'Fare'])
+data.loc[data["Sex"] == "male", "Sex"] = 0
+data.loc[data["Sex"] == "female", "Sex"] = 1
+
+# 특성과 레이블 선택
+features = data[["Pclass", "Sex", "Fare"]]
+label = data["Survived"]
+
+# 데이터 분할
+x_train, x_test, y_train, y_test = train_test_split(features, label, test_size=0.3, random_state=12)
+
+# 모델 생성
+clf = DecisionTreeClassifier(random_state=12)
+
+# 모델 학습
+clf.fit(x_train, y_train)
+
+# 예측
+y_pred = clf.predict(x_test)
+
+# 정확도 평가
+acc = accuracy_score(y_test, y_pred)
+print("모델 정확도: ", acc)
+
 
 
 

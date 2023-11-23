@@ -46,7 +46,10 @@ print('m,n의 공분산 : ', np.corrcoef(m,n)[0,1])
 
 
 
+xx = np.array([1, 2, 3, 4, 5])
+yy = np.array([8, 7, 6, 4, 5])
 
+print("상관계수: ", np.corrcoef(xx,yy)[0,1])
 
 
 
